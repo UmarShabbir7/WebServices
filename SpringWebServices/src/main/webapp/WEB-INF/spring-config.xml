@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd ">
+
+	<mvc:annotation-driven />
+	<context:component-scan base-package="org.spring.invo8" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	<bean id="calculationBean" class="org.spring.invo8.httpInvoker.CalculationImpl"></bean>
+
+	<bean name="/Calculation.http"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+		<property name="service" ref="calculationBean"></property>
+		<property name="serviceInterface" value="org.spring.invo8.httpInvoker.Calculation"></property>
+	</bean>
+
+<!-- 	<bean id="clientBean"
+		class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+		<property name="serviceUrl"	value="http://localhost:8081/SpringWebServices/Calculation.http"></property>
+		<property name="serviceInterface" value="org.spring.invo8.httpInvoker.Calculation"></property>
+	</bean> -->
+
+</beans>  
